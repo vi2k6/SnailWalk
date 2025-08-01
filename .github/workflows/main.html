@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SnailNav 🐌 | Slowest Navigation System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      color: #4a148c;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      width: 250px;
+      margin: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background-color: #6a1b9a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4a148c;
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 1.4rem;
+      color: #311b92;
+    }
+
+    .snail {
+      font-size: 3rem;
+      animation: crawl 3s infinite linear;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    @keyframes crawl {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100px); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🐌 SnailNav - The Slowest Navigation System</h1>
+
+  <div class="input-group">
+    <input type="text" id="from" placeholder="From (source)">
+    <input type="text" id="to" placeholder="To (destination)">
+  </div>
+
+  <button onclick="calculateSnailETA()">Get Snail ETA</button>
+
+  <div class="result" id="result"></div>
+  <div class="snail">🐌</div>
+
+  <script>
+    function getRandomDistance() {
+      // Generates a fake distance between 50 km and 2000 km
+      return Math.floor(Math.random() * 1950) + 50;
+    }
+
+    function calculateSnailETA() {
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const result = document.getElementById('result');
+
+      if (!from || !to) {
+        result.innerHTML = "Please enter both source and destination!";
+        return;
+      }
+
+      const snailSpeedKmH = 0.048; // Average snail speed
+      const distance = getRandomDistance(); // Fake distance in km
+      const timeInHours = distance / snailSpeedKmH;
+      const timeInDays = timeInHours / 24;
+      const timeInYears = timeInDays / 365;
+
+      const formattedDays = Math.floor(timeInDays);
+      const formattedYears = timeInYears.toFixed(2);
+
+      result.innerHTML = `
+        📍 Estimated distance from <b>${from}</b> to <b>${to}</b>: <b>${distance} km</b><br><br>
+        🐌 At snail speed (0.048 km/h), your snail will arrive in:<br>
+        <b>${formattedDays} days</b> (~${formattedYears} years)<br><br>
+        Good luck... bring snacks. 🍃
+      `;
+    }
+  </script>
+
+</body>
+  </html>
